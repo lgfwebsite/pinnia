@@ -37,7 +37,8 @@ export default defineConfig({
       scss: {
         //引入element-plus的scss变量
         //自动导入覆盖掉默认样式
-        additionalData: `@use "@/styles/element/index.scss" as *;`
+        additionalData: `@use "@/styles/element/index.scss" as *;
+        @use "@/styles/var.scss" as *;`
       }
     }
   }
