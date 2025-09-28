@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      //别名配置
+      "@/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

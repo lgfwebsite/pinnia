@@ -1,0 +1,10 @@
+//重新定义element-plus的scss变量
+@forward "element-plus/theme-chalk/src/common/var.scss";
+$colors:(
+  "primary": #27ba9b,
+  "success": #1dc779,
+  "warning": #ffb302,
+  "danger": #e26237,
+  "error": #cf4444,
+  "info": #909399
+);
