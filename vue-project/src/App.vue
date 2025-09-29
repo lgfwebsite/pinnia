@@ -1,11 +1,11 @@
 <script setup></script>
 
 <template>
-  <h1>You did it!</h1>
+  <!-- <h1>You did it!</h1> -->
   <!-- roter-view 一级路由出口-->
   <router-view></router-view>
   <div class="priceColor">
-    <p>测试scss变量</p>
+    <!-- <p>测试scss变量</p> -->
   </div>
 </template>
 
