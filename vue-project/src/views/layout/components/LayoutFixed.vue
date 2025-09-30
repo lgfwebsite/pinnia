@@ -11,17 +11,20 @@ const { y } = useScroll(window)
 
 // 使用pinia中的数据
 // const categoryStore = useCategoryStore()
-import getcategoryApi from '@/apis/layout.js';
+// import getcategoryApi from '@/apis/layout.js';
 import { onMounted, ref } from 'vue';
-const catelist=ref([])
-const getcateList= async function getcategory() {
-    const res = await getcategoryApi();
-    catelist.value =res.result
-    console.log(res);
-}
-onMounted(() => {
-    getcateList()
-})
+// const catelist=ref([])
+// const getcateList= async function getcategory() {
+//     const res = await getcategoryApi();
+//     catelist.value =res.result
+//     console.log(res);
+// }
+import { useCategoryStore } from '@/stores/category.js';
+const categoryStore = useCategoryStore()
+
+// onMounted(() => {
+//     getcateList()
+// })
 
 </script>
 
@@ -35,7 +38,7 @@ onMounted(() => {
                 <!-- <li class="home">
                     <RouterLink to="/">首页</RouterLink>
                 </li> -->
-                <li class="home" v-for="item in catelist" :key="item.id">
+                <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
                     <RouterLink>{{ item.name }}</RouterLink>
                 </li>
             </ul>

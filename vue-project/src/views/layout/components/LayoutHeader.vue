@@ -3,15 +3,14 @@
 import getcategoryApi from '@/apis/layout.js';
 import { onMounted, ref } from 'vue';
 
-const catelist=ref([])
-const getcateList= async function getcategory() {
-    const res = await getcategoryApi();
-    catelist.value =res.result
-    console.log(res);
-}
-onMounted(() => {
-    getcateList()
-})
+// const catelist=ref([])
+// const getcateList= async function getcategory() {
+//     const res = await getcategoryApi();
+//     catelist.value =res.result
+//     console.log(res);
+// }
+import { useCategoryStore } from '@/stores/category.js';
+const categoryStore = useCategoryStore()
 
 </script>
 
@@ -23,7 +22,8 @@ onMounted(() => {
             </h1>
             <ul class="app-header-nav">
                 <!-- <li><RouterLink to="/" >首页</RouterLink></li> -->
-                <li v-for="item in catelist" :key="item.id">
+                <li v-for="item in categoryStore.categoryList" :key="item.id">
+                  <!-- {{ categoryStore }} -->
                     <RouterLink to="/">{{ item.name }}</RouterLink>
                 </li>
             </ul>
