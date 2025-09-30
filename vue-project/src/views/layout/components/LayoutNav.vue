@@ -5,7 +5,7 @@
 
       <template v-if="true">
 
-        <li><a href="javascript:void(0)"><i>
+        <li><a href="javascript:void(0)"><i class="iconfont icon-user">
           {{ '用户名' }}
         </i></a></li>
         <li>

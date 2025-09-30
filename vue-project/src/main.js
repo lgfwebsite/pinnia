@@ -7,11 +7,11 @@ import router from './router'
 import '@/styles/common.scss'
 //图片和commoncss没有引入
 
-//测试接口函数
-import { getTestData } from "@/apis/testAPI";
-getTestData().then(res => {
-    console.log(res);
-})
+// //测试接口函数
+// import { getTestData } from "@/apis/testAPI";
+// getTestData().then(res => {
+//     console.log(res);
+// })
 
 const app = createApp(App)
 

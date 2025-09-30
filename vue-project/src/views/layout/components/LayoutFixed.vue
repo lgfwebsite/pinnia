@@ -1,8 +1,18 @@
 <script setup>
+// import LayoutHeaderUl from './LayoutHeaderUl.vue'
+// vueUse useScroll: 获取当前页面滚动了多少
+import { useScroll } from '@vueuse/core'
 
+// // 封装请求
+// import { useCategoryStore } from '@/stores/categoryStore';
+
+// 纵向滚动的距离
+const { y } = useScroll(window)
+
+// 使用pinia中的数据
+// const categoryStore = useCategoryStore()
 import getcategoryApi from '@/apis/layout.js';
 import { onMounted, ref } from 'vue';
-
 const catelist=ref([])
 const getcateList= async function getcategory() {
     const res = await getcategoryApi();
@@ -16,31 +26,84 @@ onMounted(() => {
 </script>
 
 <template>
-    <header class='app-header'>
+    <div class="app-header-sticky" :class="{ show: y > 100 }">
         <div class="container">
-            <h1 class="logo">
-                <RouterLink to="/">小兔鲜</RouterLink>
-            </h1>
+            <RouterLink class="logo" to="/" />
+            {{ y }}
+            <!-- 导航区域 -->
             <ul class="app-header-nav">
-                <!-- <li><RouterLink to="/" >首页</RouterLink></li> -->
-                <li v-for="item in catelist" :key="item.id">
-                    <RouterLink to="/">{{ item.name }}</RouterLink>
+                <!-- <li class="home">
+                    <RouterLink to="/">首页</RouterLink>
+                </li> -->
+                <li class="home" v-for="item in catelist" :key="item.id">
+                    <RouterLink>{{ item.name }}</RouterLink>
                 </li>
             </ul>
-
-            <LayoutHeaderUl />
-            <div class="search">
-                <i class="iconfont icon-search"></i>
-                <input type="text" placeholder="搜一搜">
+            <!-- <LayoutHeaderUl /> -->
+            <div class="right">
+                <RouterLink to="/">品牌</RouterLink>
+                <RouterLink to="/">专题</RouterLink>
             </div>
-            <!-- 头部购物车 -->
-            <HeaderCart />
         </div>
-    </header>
+    </div>
 </template>
 
 
 <style scoped lang='scss'>
+.app-header-sticky {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    background-color: #fff;
+    border-bottom: 1px solid #e4e4e4;
+    // 此处为关键样式!!!
+    // 状态一：往上平移自身高度 + 完全透明
+    transform: translateY(-100%);
+    // 透明度 0 => 全透明
+    opacity: 0;
+
+    // 状态二：移除平移 + 完全不透明
+    &.show {
+        transition: all 0.3s linear;
+        transform: none;
+        opacity: 1;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        width: 200px;
+        height: 80px;
+        background: url("@/assets/images/logo.png") no-repeat right 2px;
+        background-size: 160px auto;
+    }
+
+    .right {
+        width: 220px;
+        display: flex;
+        text-align: center;
+        padding-left: 40px;
+        border-left: 2px solid $xtxColor;
+
+        a {
+            width: 38px;
+            margin-right: 40px;
+            font-size: 16px;
+            line-height: 1;
+
+            &:hover {
+                color: $xtxColor;
+            }
+        }
+    }
+}
+
 .app-header {
     background: #fff;
 
