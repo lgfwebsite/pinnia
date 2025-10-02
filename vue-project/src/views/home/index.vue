@@ -8,7 +8,13 @@
   </div>
   <Homenew></Homenew>
   <HomeProduct></HomeProduct>
-  <HomeProduct></HomeProduct>
+  <homepannel title="新鲜好物" subtitle="新鲜好物 好多商品">
+    <div>我是新鲜好物的插槽</div>
+  </homepannel>
+  <homepannel title="人气推荐" subtitle="人气推荐 好多商品">
+    <div>我是人气推荐的插槽</div>
+  </homepannel>
+
 
 </template>
 <script setup lang="ts">
@@ -19,4 +25,6 @@ import HomeHot from './compontents/homehot.vue'
 import HomeProduct from './compontents/homeproduct.vue'
 import Homecategory from './compontents/homecategory.vue'
 import Homenew from './compontents/homenew.vue'
+import homepannel from './compontents/homepannel.vue'
+
 </script>
