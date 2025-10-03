@@ -1,17 +1,18 @@
 <script setup>
 import HomePanel from './homepannel.vue'
 import { onMounted, ref } from 'vue';
-import  getNewHots from "@/apis/home"
+import  {getNewHots} from "@/apis/home"
 const hotList=ref([])
 const getNewHotsApi=async ()=>{
     const res = await getNewHots()
     hotList.value = res.result
-    console.log(hotList.value);
+    console.log('hot',hotList.value);
 
 }
 
 onMounted(()=>{
  getNewHotsApi()
+ console.log('hotList111',hotList.value);
 })
 
 </script>
@@ -22,9 +23,9 @@ onMounted(()=>{
             <li v-for="item in hotList" :key="item.id">
                 <RouterLink to="/">
                   <!-- 图片懒加载，节省请求资源(用户视图看不到就不加载！) -->
-                  <img :src="item.imgUrl" />
-                    <p class="name">{{ item.name }}</p>
-                    <p class="desc">{{ item.desc }}</p>
+                  <img v-img-lazy="item.picture" alt=""/>
+                    <p class="name">{{ item.title }}</p>
+                    <p class="desc">{{ item.alt }}</p>
                 </RouterLink>
             </li>
         </ul>
