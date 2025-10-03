@@ -7,3 +7,11 @@ function getHomeList() {
     });
 }
 export default getHomeList;
+
+//获取新鲜好物
+export function getNewGoods() {
+    return httpinstance({
+        url: "/home/new",
+        method: "get"
+    });
+}
