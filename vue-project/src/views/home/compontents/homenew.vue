@@ -1,7 +1,7 @@
 <script setup>
 import HomePanel from './homepannel.vue'
 import { onMounted, ref } from 'vue'
-import {getNewGoods} from '@/stores/home.js'
+import {getNewGoods} from '@/apis/home.js'
 const newList = ref([])
 const fetchNewGoods = async () => {
     const res = await getNewGoods()

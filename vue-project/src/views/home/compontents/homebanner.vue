@@ -11,7 +11,7 @@
 <script setup>
 import { ref } from 'vue';
 import { onMounted } from 'vue';
-import getbanner from '@/stores/home.js';
+import getbanner from '@/apis/home.js';
 const bannerList = ref([]);
 const getbannerlist = async () => {
     const res = await getbanner();

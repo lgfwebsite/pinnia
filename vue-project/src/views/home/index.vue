@@ -7,15 +7,16 @@
     <HomeBanner></HomeBanner>
   </div>
   <Homenew></Homenew>
+  <HomeHot></HomeHot>
   <HomeProduct></HomeProduct>
-  <homepannel title="新鲜好物" subtitle="新鲜好物 好多商品">
+  <!-- <homepannel title="新鲜好物" subtitle="新鲜好物 好多商品"> -->
     <!-- <div>我是新鲜好物的插槽</div> -->
 
-  </homepannel>
-  <homepannel title="人气推荐" subtitle="人气推荐 好多商品">
+  <!-- </homepannel> -->
+  <!-- <homepannel title="人气推荐" subtitle="人气推荐 好多商品"> -->
 
     <!-- <div>我是人气推荐的插槽</div> -->
-  </homepannel>
+  <!-- </homepannel> -->
 
 
 </template>

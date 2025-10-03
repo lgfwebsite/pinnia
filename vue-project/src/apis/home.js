@@ -15,3 +15,11 @@ export function getNewGoods() {
         method: "get"
     });
 }
+
+//人气推荐
+export function getNewHots(){
+  return httpinstance({
+    url:"/home/hot",
+    method:"get"
+  })
+}
