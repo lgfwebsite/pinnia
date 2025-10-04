@@ -23,3 +23,11 @@ export function getNewHots(){
     method:"get"
   })
 }
+
+//商品列表
+export function getHomeGoods(){
+  return httpinstance({
+    url:"/home/goods",
+    method:"get"
+  })
+}
