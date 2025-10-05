@@ -40,7 +40,7 @@ const router = createRouter({
           component: home
         },
         {
-           path: 'category',
+           path: 'category/:id',//动态路由
            name: 'category',
             component: category
         }
