@@ -3,6 +3,7 @@ import { getHomeGoods } from '@/apis/home';
 import {ref} from 'vue';
 import { onMounted } from 'vue';
 import HomePanel from './homepannel.vue'
+import GoodsItem from './gooditem.vue'
 const goodsProduct=ref([])
 const getHomeGoodsApi=async ()=>{
     const res=await getHomeGoods()
@@ -28,13 +29,13 @@ console.log('goodsProduct111',goodsProduct.value);
                 </RouterLink>
                 <ul class="goods-list">
                     <li v-for="good in cate.goods" :key="good.id">
-                        <GoodsItem :goods="good" />
-                         <RouterLink to="/" class="goods-item">
+                         <GoodsItem :good="good"/>
+                         <!-- <RouterLink to="/" class="goods-item">
                             <img v-img-lazy="good.picture" alt="">
                             <p class="name ellipsis">{{ good.name }}</p>
                             <p class="desc ellipsis">{{ good.desc }}</p>
                             <p class="price">&yen;{{ good.price }}</p>
-                        </RouterLink>
+                        </RouterLink> -->
                     </li>
                 </ul>
             </div>

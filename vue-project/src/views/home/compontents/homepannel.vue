@@ -6,7 +6,7 @@ defineProps({
     },
     subtitle: {
         type: String,
-        default: '默认副标题'
+        default: ''
     }
 });
 // 定义props 接收父组件传递的标题和副标题
