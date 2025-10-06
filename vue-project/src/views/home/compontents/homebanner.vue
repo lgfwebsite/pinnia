@@ -11,10 +11,10 @@
 <script setup>
 import { ref } from 'vue';
 import { onMounted } from 'vue';
-import getbanner from '@/apis/home.js';
+import {getHomeList} from '@/apis/home.js';
 const bannerList = ref([]);
 const getbannerlist = async () => {
-    const res = await getbanner();
+    const res = await getHomeList();
     bannerList.value = res.result;
     console.log(res);
 }

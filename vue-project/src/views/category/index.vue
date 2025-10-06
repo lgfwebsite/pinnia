@@ -3,6 +3,7 @@ import { onMounted, onUpdated, watchEffect } from 'vue';
 import {getCategoryList} from '@/apis/category.js';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import {getHomeList} from '@/apis/home.js';
 const catelist = ref([]);
 const route = useRoute();
 const getcateList = async ()=>{
@@ -13,10 +14,23 @@ const getcateList = async ()=>{
 onMounted(()=>{
   getcateList()
 })
-onUpdated(()=>{
+watchEffect(()=>{
   getcateList()
 })
-
+//获取banner
+const bannerList = ref([]);
+const getbannerlist = async () => {
+    console.log('执行', 1111111); // 先看是否打印
+    // 传入参数distributionSite: '2' 来获取分类页的banner 数据
+    const res = await getHomeList({distributionSite:'2'});
+    // 注释掉有问题的打印
+    // console.log(distributionSi
+    bannerList.value = res.result;
+    console.log('执行', 22222222); // 现在看是否打印
+  }
+onMounted(() => {
+    getbannerlist();
+});
 </script>
 
 <template>
@@ -29,12 +43,32 @@ onUpdated(()=>{
                     <el-breadcrumb-item> {{ catelist.name }}</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
+            <!-- 轮播图 -->
+              <div class="home-banner">
+        <el-carousel height="500px">
+            <el-carousel-item v-for="item in bannerList " :key="item.id" >
+                <img alt="" :src="item.imgUrl" />
+            </el-carousel-item>
+        </el-carousel>
+    </div>
         </div>
     </div>
 </template>
 
 
 <style scoped lang="scss">
+.home-banner {
+    width: 1240px;
+    height: 500px;
+    margin: 0 auto;
+    z-index: 98;
+
+    img {
+        width: 100%;
+        height: 500px;
+    }
+}
+
 .top-category {
     h3 {
         font-size: 28px;

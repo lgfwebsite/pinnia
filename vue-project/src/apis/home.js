@@ -1,12 +1,17 @@
 import httpinstance from "@/utils/http.js";
 console.log(httpinstance);
-function getHomeList() {
+export function getHomeList(params = {}) {
+    // 默认为1 商品为2
+    const { distributionSite = '1' } = params
     return httpinstance({
-        url: "/home/banner",
-        method: "get"
-    });
+        url: '/home/banner',
+        params: {
+            distributionSite
+        }
+    })
 }
-export default getHomeList;
+
+
 
 //获取新鲜好物
 export function getNewGoods() {
