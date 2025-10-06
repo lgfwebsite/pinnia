@@ -1,23 +1,23 @@
 <script setup>
-import { onMounted, onUpdated, watchEffect } from 'vue';
+import { onBeforeUpdate, onMounted, onUpdated, watchEffect } from 'vue';
 import {getCategoryList} from '@/apis/category.js';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import {getHomeList} from '@/apis/home.js';
 import GoodsItem from '@/views/home/compontents/gooditem.vue';
 const catelist = ref([]);
 const route = useRoute();
-const getcateList = async ()=>{
-  const res=await getCategoryList(route.params.id);
+const getcateList = async (id=route.params.id)=>{
+  const res=await getCategoryList(id);
   catelist.value =res.result
   console.log(res,1111);
 }
 onMounted(()=>{
   getcateList()
 })
-watchEffect(()=>{
-  getcateList()
-})
+// watchEffect(()=>{
+//   getcateList()
+// })
 //获取banner
 const bannerList = ref([]);
 const getbannerlist = async () => {
@@ -31,6 +31,13 @@ const getbannerlist = async () => {
   }
 onMounted(() => {
     getbannerlist();
+});
+
+//路由变化 分类接口重新发送
+onBeforeRouteUpdate((to) => {
+  // console.log('beforeUpdate');
+  console.log(to,'to');
+  getcateList(to.params.id);
 });
 </script>
 

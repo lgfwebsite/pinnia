@@ -20,7 +20,10 @@ onMounted(() => {
     <LayoutNav />
     <LayoutHeader />
      <!-- 二级路由 -->
-    <router-view></router-view>
+    <!-- 破坏复用机制 强制销毁重建 -->
+    <!-- <router-view :key="$route.fullPath"></router-view> -->
+     <RouterView />
+
     <LayoutFooter />
 
   </div>
