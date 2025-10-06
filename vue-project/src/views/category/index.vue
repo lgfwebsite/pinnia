@@ -4,6 +4,7 @@ import {getCategoryList} from '@/apis/category.js';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import {getHomeList} from '@/apis/home.js';
+import GoodsItem from '@/views/home/compontents/gooditem.vue';
 const catelist = ref([]);
 const route = useRoute();
 const getcateList = async ()=>{
@@ -51,6 +52,26 @@ onMounted(() => {
             </el-carousel-item>
         </el-carousel>
     </div>
+     <div class="sub-list">
+                <h3>全部分类</h3>
+                <ul>
+                    <li v-for="i in catelist.children" :key="i.id">
+                        <!-- 配置路由关系 -->
+                        <RouterLink to="/">
+                            <img :src="i.picture" />
+                            <p>{{ i.name }}</p>
+                        </RouterLink>
+                    </li>
+                </ul>
+            </div>
+            <div class="ref-goods" v-for="item in catelist.children" :key="item.id">
+                <div class="head">
+                    <h3>- {{ item.name }}-</h3>
+                </div>
+                <div class="body">
+                    <GoodsItem v-for="good in item.goods" :good="good" :key="good.id" />
+                </div>
+            </div>
         </div>
     </div>
 </template>
