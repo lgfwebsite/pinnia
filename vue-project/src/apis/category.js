@@ -19,3 +19,11 @@ export function getCateList(id) {
     }
   })
 }
+
+
+//获取二级分类导航数据
+export function getSubCategoryNav(){
+   return httpinstance({
+    url:"category/sub/nav"
+   })
+}
