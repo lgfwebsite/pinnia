@@ -1,4 +1,18 @@
 <script setup>
+import {getCateList} from '@/apis/category.js';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route=useRoute();
+const catelist = ref({});
+const getcateListApi=async(id=route.params.id)=>{
+  const res=await getCateList(id)
+  catelist.value =res.result
+  console.log(res);
+}
+onMounted(()=>{
+  getcateListApi()
+})
 </script>
 
 <template>
@@ -7,8 +21,8 @@
         <div class="bread-container">
             <el-breadcrumb separator=">">
                 <el-breadcrumb-item :to="{path:'/'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{path:'/'}">居家</el-breadcrumb-item>
-                <el-breadcrumb-item>居家生活用品</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{path:`/category/${catelist.parentId}`}">{{ catelist.parentName }}</el-breadcrumb-item>
+                <el-breadcrumb-item>{{ catelist.name }}</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="sub-container">
