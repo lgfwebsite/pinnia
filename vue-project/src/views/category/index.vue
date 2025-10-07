@@ -5,40 +5,44 @@ import { ref } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import {getHomeList} from '@/apis/home.js';
 import GoodsItem from '@/views/home/compontents/gooditem.vue';
-const catelist = ref([]);
-const route = useRoute();
-const getcateList = async (id=route.params.id)=>{
-  const res=await getCategoryList(id);
-  catelist.value =res.result
-  console.log(res,1111);
-}
-onMounted(()=>{
-  getcateList()
-})
+import {useBanner} from '../category/composables/useBanner';
+const {bannerList}= useBanner();
+const {catelist} = useCategory();
+// const catelist = ref([]);
+// const route = useRoute();
+// const getcateList = async (id=route.params.id)=>{
+//   const res=await getCategoryList(id);
+//   catelist.value =res.result
+//   console.log(res,1111);
+// }
+// onMounted(()=>{
+//   getcateList()
+// })
 // watchEffect(()=>{
 //   getcateList()
 // })
+
 //获取banner
-const bannerList = ref([]);
-const getbannerlist = async () => {
-    console.log('执行', 1111111); // 先看是否打印
-    // 传入参数distributionSite: '2' 来获取分类页的banner 数据
-    const res = await getHomeList({distributionSite:'2'});
-    // 注释掉有问题的打印
-    // console.log(distributionSi
-    bannerList.value = res.result;
-    console.log('执行', 22222222); // 现在看是否打印
-  }
-onMounted(() => {
-    getbannerlist();
-});
+// const bannerList = ref([]);
+// const getbannerlist = async () => {
+//     console.log('执行', 1111111); // 先看是否打印
+//     // 传入参数distributionSite: '2' 来获取分类页的banner 数据
+//     const res = await getHomeList({distributionSite:'2'});
+//     // 注释掉有问题的打印
+//     // console.log(distributionSi
+//     bannerList.value = res.result;
+//     console.log('执行', 22222222); // 现在看是否打印
+//   }
+// onMounted(() => {
+//     getbannerlist();
+// });
 
 //路由变化 分类接口重新发送
-onBeforeRouteUpdate((to) => {
-  // console.log('beforeUpdate');
-  console.log(to,'to');
-  getcateList(to.params.id);
-});
+// onBeforeRouteUpdate((to) => {
+//   // console.log('beforeUpdate');
+//   console.log(to,'to');
+//   getcateList(to.params.id);
+// });
 </script>
 
 <template>
