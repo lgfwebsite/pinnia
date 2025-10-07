@@ -17,5 +17,5 @@ const getbannerlist = async () => {
 onMounted(() => {
     getbannerlist();
 });
-   return bannerList
+   return {bannerList}
 }

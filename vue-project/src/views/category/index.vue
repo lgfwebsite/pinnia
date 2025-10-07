@@ -6,6 +6,7 @@ import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import {getHomeList} from '@/apis/home.js';
 import GoodsItem from '@/views/home/compontents/gooditem.vue';
 import {useBanner} from '../category/composables/useBanner';
+import {useCategory} from '../category/composables/useCategory';
 const {bannerList}= useBanner();
 const {catelist} = useCategory();
 // const catelist = ref([]);
@@ -68,7 +69,7 @@ const {catelist} = useCategory();
                 <ul>
                     <li v-for="i in catelist.children" :key="i.id">
                         <!-- 配置路由关系 -->
-                        <RouterLink to="/">
+                        <RouterLink :to="`/category/sub/${i.id}`">
                             <img :src="i.picture" />
                             <p>{{ i.name }}</p>
                         </RouterLink>
