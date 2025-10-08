@@ -21,9 +21,11 @@ export function getCateList(id) {
 }
 
 
-//获取二级分类导航数据
-export function getSubCategoryNav(){
+//获取二级分类商品列表数据
+export function getSubCategoryApi(data){
    return httpinstance({
-    url:"category/sub/nav"
+    url:"/category/goods/temporary",
+    method:'post',
+    data
    })
 }

@@ -2,7 +2,8 @@
 import {getCateList} from '@/apis/category.js';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-
+import {getSubCategoryApi} from '@/apis/category'
+import gooditem from '../home/compontents/gooditem.vue';
 const route=useRoute();
 const catelist = ref({});
 const getcateListApi=async(id=route.params.id)=>{
@@ -12,6 +13,22 @@ const getcateListApi=async(id=route.params.id)=>{
 }
 onMounted(()=>{
   getcateListApi()
+})
+//基础列表渲染
+const goodlist=ref([])
+const resData=ref({
+  categoryId:route.params.id,
+  page:1,
+  pageSize:20,
+  sortField: 'publishTime'
+})
+const getGoodlist=async ()=>{
+  const res=await getSubCategoryApi(resData)
+  goodlist.value =res.result.items
+  console.log(res)
+}
+onMounted(()=>{
+  getGoodlist()
 })
 </script>
 
@@ -33,7 +50,7 @@ onMounted(()=>{
             </el-tabs>
             <div class="body">
                 <!-- 商品列表-->
-
+               <gooditem v-for="good in goodlist" :key="good.id" :good="good"></gooditem>
             </div>
         </div>
     </div>
