@@ -55,6 +55,13 @@ const router = createRouter({
        ]
     }
   ],
+  //路由滚动行为控制
+  scrollBehavior(){
+    return {
+      top:0
+    }
+  }
+
 })
 
 export default router
