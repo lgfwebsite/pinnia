@@ -4,7 +4,7 @@ import axios from 'axios';
 //创建axios实例
 const service = axios.create({
     baseURL: 'https://pcapi-xiaotuxian-front-devtest.itheima.net', //基础url
-    timeout: 5000 //请求超时时间
+    timeout: 50000 //请求超时时间
 });
 
 //请求拦截器

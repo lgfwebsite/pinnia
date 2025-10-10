@@ -12,6 +12,7 @@ onMounted(() => {
     fetchNewGoods()
 })
 
+
 </script>
 
 <template>
