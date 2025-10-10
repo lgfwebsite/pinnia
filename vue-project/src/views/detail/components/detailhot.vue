@@ -1,20 +1,37 @@
 <script setup>
 import { getHotGoodsApi } from '@/apis/detail';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
+//设计响应式数据props
+const props=defineProps({
+  type:{
+    type:Number
 
-const hotList=ref([])
+  }
+})
+
+const TypeMap={
+  1:'24小时热销榜',
+  2:'周热榜'
+
+}
+const title=computed(()=>{
+  return TypeMap[props.type]
+})
+
+const hotList=ref([]);
 const route=useRoute()
 const getHotGoods=async()=>{
   const res=await getHotGoodsApi(
     {
       id:route.params.id,
-      type:1,
+      type:props.type,
       limit:10
     }
 
   )
   hotList.value=res.result
+  console.log(props)
 }
 onMounted(()=>{
     getHotGoods()
@@ -23,7 +40,7 @@ onMounted(()=>{
 
 <template>
     <div class="goods-hot">
-        <h3>周日榜单</h3>
+        <h3>{{ title }}</h3>
         <!-- 商品区块 -->
         <RouterLink to="/" class="goods-item" v-for="item in hotList" :key="item.id">
             <img :src="item.picture" alt="" />
