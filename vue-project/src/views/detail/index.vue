@@ -2,6 +2,7 @@
 import { getDetailApi } from '@/apis/detail'
 import { useRoute } from 'vue-router'
 import {ref,onMounted} from 'vue'
+import detailhot from './components/detailhot.vue'
 const goods = ref({})
 const route = useRoute()
 const getGoods = async () => {
@@ -103,7 +104,7 @@ onMounted(() => getGoods())
                                 <div class="goods-detail">
                                     <!-- 属性 -->
                                     <ul class="attrs">
-                                        <li v-for="item in goods.details?.properties" :key="item.id">value">
+                                        <li v-for="item in goods.details?.properties" :key="item.id">
                                             <span class="dt"> {{ item.name }} </span>
                                             <span class="dd"> {{ item.value }} </span>
                                         </li>
@@ -116,24 +117,11 @@ onMounted(() => getGoods())
                         <!-- 24热榜+专题推荐 -->
                         <div class="goods-aside">
                             <!-- 24小时 -->
-                            <!-- <div class="panel">
-                                <div class="p-header">
-                                    <h3>24小时热销榜</h3>
-                                </div>
-                                <!-- <div class="p-content">
-                                     <ul> -->
-                                        <!-- <li v-for="item in hotSales" :key="item.id"> -->
+                          <detailhot></detailhot>
+                          <!-- 周 -->
+                           <detailhot></detailhot>
+                        </div>
 
-                                <!-- </div> -->
-                            <!-- </div>  -->
-                        </div>
-                        <!-- 24热榜+专题推荐 -->
-                        <div class="goods-aside">
-                            <!-- 24小时 -->
-                            <DetailHot :hot-type="1" />
-                            <!-- 周 -->
-                            <DetailHot :hot-type="2" />
-                        </div>
                     </div>
                 </div>
             </div>
