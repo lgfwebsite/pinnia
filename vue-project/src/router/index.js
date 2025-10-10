@@ -4,6 +4,7 @@ import layout from '../views/layout/index.vue'
 import home from '../views/home/index.vue'
 import category from '../views/category/index.vue'
 import subcategory  from '../views/subcategory/index.vue'
+import detail from '../views/detail/index.vue'
 
 //createRouter函数：创建路由实例
 //createWebHistory函数：创建基于HTML5 History API的路由模式
@@ -50,6 +51,11 @@ const router = createRouter({
           path: 'category/sub/:id',
           name: 'subcategory',
           component: subcategory
+        },
+        {
+          path:'detail/:id',
+          name:'detail',
+          component: detail
         }
 
        ]
