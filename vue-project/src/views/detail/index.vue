@@ -4,11 +4,15 @@ import { useRoute } from 'vue-router'
 import {ref,onMounted} from 'vue'
 import detailhot from './components/detailhot.vue'
 import imageView from '@/components/ImageView/index.vue'
+import XtxSku from '@/components/XtxSku/index.vue'
 const goods = ref({})
 const route = useRoute()
 const getGoods = async () => {
     const res = await getDetailApi(route.params.id)
     goods.value = res.result
+}
+const skuChange=(sku)=>{
+    console.log('skuChange',sku)
 }
 onMounted(() => getGoods())
 </script>
@@ -86,7 +90,7 @@ onMounted(() => getGoods())
                                 </dl>
                             </div>
                             <!-- sku组件 -->
-
+                            <xtx-sku :goods="goods" @change="skuChange"/>
                             <!-- 数据组件 -->
 
                             <!-- 按钮组件 -->
@@ -94,7 +98,7 @@ onMounted(() => getGoods())
                                 <el-button size="large" class="btn" @click="addCart">
                                     加入购物车
                                 </el-button>
-                            </div>
+                       </div>
                         </div>
                     </div>
                     <div class="goods-footer">
