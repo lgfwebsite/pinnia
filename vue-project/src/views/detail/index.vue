@@ -3,8 +3,9 @@ import { getDetailApi } from '@/apis/detail'
 import { useRoute } from 'vue-router'
 import {ref,onMounted} from 'vue'
 import detailhot from './components/detailhot.vue'
-import imageView from '@/components/ImageView/index.vue'
-import XtxSku from '@/components/XtxSku/index.vue'
+// import imageView from '@/components/ImageView/index.vue'
+// import XtxSku from '@/components/XtxSku/index.vue'
+//用全局组件的方式引入
 const goods = ref({})
 const route = useRoute()
 const getGoods = async () => {
@@ -39,7 +40,8 @@ onMounted(() => getGoods())
                     <div class="goods-info">
                         <div class="media">
                             <!-- 图片预览区 -->
-                              <image-view :image-list="goods.mainPictures"/>
+                              <!-- <image-view :image-list="goods.mainPictures"/> -->
+                               <imageView :image-list="goods.mainPictures"></imageView>
 
                             <!-- <XtxImageView :image-list="goods.mainPictures" /> -->
                             <!-- 统计数量 -->
@@ -90,7 +92,8 @@ onMounted(() => getGoods())
                                 </dl>
                             </div>
                             <!-- sku组件 -->
-                            <xtx-sku :goods="goods" @change="skuChange"/>
+                            <!-- <xtx-sku :goods="goods" @change="skuChange"/> -->
+                             <xtx :goods="goods"  @change="skuChange"></xtx>
                             <!-- 数据组件 -->
 
                             <!-- 按钮组件 -->
