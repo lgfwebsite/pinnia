@@ -2,8 +2,8 @@
   <nav class="app-topnav">
    <div class="container">
     <ul class="nav">
-
-      <template v-if="true">
+      <!-- 区别登录与非登录的状态 -->
+      <template v-if="false">
 
         <li><a href="javascript:void(0)"><i class="iconfont icon-user">
           {{ '用户名' }}
@@ -25,7 +25,7 @@
         <li><a href="javascript:void(0)">会员中心</a></li>
       </template>
       <template v-else>
-        <li><a href="javascript:void(0)">请先登录</a></li>
+        <li><a href="javascript:void(0);;" @click="$router.push('/login')">请先登录</a></li>
         <li><a href="javascript:void(0)">帮助中心</a></li>
         <li><a href="javascript:void(0)">关于我们</a></li>
       </template>
