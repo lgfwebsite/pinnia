@@ -1,3 +1,33 @@
+<script setup>
+//表单校验
+import { ref } from 'vue'
+//创建表单对象
+const form=ref({
+    account:'',
+     password:''
+})
+
+//校验规则
+const rules={
+  account:{
+    required:true,
+    message:'账号不能为空',
+    //失去焦点时触发校验
+    trigger:'blur'
+  },
+  password:[{
+    required:true,
+    message:'请输入密码',
+    trigger:'blur'
+  },{
+    min:6,
+    max:14,
+    message:'密码长度在6-14之间',
+    trigger:'blur'
+  }
+  ]
+}
+</script>
 <template>
     <div>
         <header class="login-header">
@@ -19,13 +49,13 @@
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form  label-position="right" label-width="60px"
+                        <el-form  :model="form" :rules="rules" label-position="right" label-width="60px"
                             status-icon>
                             <el-form-item prop="account" label="账户">
-                                <el-input />
+                                <el-input v-model="form.account" />
                             </el-form-item>
                             <el-form-item prop="password" label="密码">
-                                <el-input />
+                                <el-input v-model="form.password" type="password" />
                             </el-form-item>
                             <el-form-item prop="agree" label-width="22px">
                                 <el-checkbox size="large" >
