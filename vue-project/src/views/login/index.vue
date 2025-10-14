@@ -1,10 +1,13 @@
 <script setup>
 //表单校验
+import { valueEquals } from 'element-plus';
 import { ref } from 'vue'
 //创建表单对象
 const form=ref({
     account:'',
-     password:''
+     password:'',
+     agree: true
+
 })
 
 //校验规则
@@ -25,7 +28,20 @@ const rules={
     message:'密码长度在6-14之间',
     trigger:'blur'
   }
-  ]
+  ],
+  //校验是否同意协议
+   //value是当前校验的值
+  //callback是回调函数，如果校验通过，调用callback
+  agree:{
+     validator:(rule,value,callback)=>{
+      //校验逻辑 勾选通过 不勾选不通过
+      if(value){
+        callback()
+      }else{
+        callback(new Error('请勾选协议'))
+      }
+     }
+  }
 }
 </script>
 <template>
@@ -58,7 +74,7 @@ const rules={
                                 <el-input v-model="form.password" type="password" />
                             </el-form-item>
                             <el-form-item prop="agree" label-width="22px">
-                                <el-checkbox size="large" >
+                                <el-checkbox size="large" v-model="form.agree" >
                                     我已同意隐私条款和服务条款
                                 </el-checkbox>
                             </el-form-item>
