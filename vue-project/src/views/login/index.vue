@@ -43,6 +43,22 @@ const rules={
      }
   }
 }
+
+//获取form实例
+const formRef=ref(null)
+const doLogin=()=>{
+  console.log('formRef',formRef.value)
+  formRef.value.validate((valid)=>{
+    //valid是校验结果 所有校验通过为true 否则为false
+    if(valid){
+      console.log('校验通过',valid)
+      //校验通过 才执行登录逻辑
+    }else{
+      console.log('校验失败')
+    }
+  })
+}
+
 </script>
 <template>
     <div>
@@ -65,7 +81,8 @@ const rules={
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form  :model="form" :rules="rules" label-position="right" label-width="60px"
+                      <!-- ref -->
+                        <el-form  ref = "formRef" :model="form" :rules="rules" label-position="right" label-width="60px"
                             status-icon>
                             <el-form-item prop="account" label="账户">
                                 <el-input v-model="form.account" />
@@ -78,7 +95,7 @@ const rules={
                                     我已同意隐私条款和服务条款
                                 </el-checkbox>
                             </el-form-item>
-                            <el-button size="large" class="subBtn" >点击登录</el-button>
+                            <el-button size="large" class="subBtn" @click="doLogin" >点击登录</el-button>
                         </el-form>
                     </div>
                 </div>
