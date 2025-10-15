@@ -3,11 +3,13 @@
 import { valueEquals } from 'element-plus';
 import { ref } from 'vue'
 import { loginApi } from '@/apis/user';
+import { useUserstore } from '@/stores/user'
 //提示组件与css
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 
 import { useRouter } from 'vue-router'
+const userStore=useUserstore()
 // useRouter()获取路由对象 带r是获取方法 不带r是获取属性/参数
 const router=useRouter()
 
@@ -63,8 +65,10 @@ const doLogin=()=>{
     if(valid){
       console.log('校验通过',valid)
       //校验通过 才执行登录逻辑
-      const res=await loginApi(account,password)
-      console.log('res',res)
+      // const res=await loginApi(account,password)
+      // console.log('res',res)
+       console.log('登录成功',userStore)
+      await userStore.getUserInfo({account,password})
       //提示用户
       ElMessage.success('登录成功')
       //跳转到首页
