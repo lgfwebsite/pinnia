@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import { lazyPlugin } from '@/directives'
 import { useIntersectionObserver } from '@vueuse/core'
+import piniaPLuginPersist from 'pinia-plugin-persistedstate'
 //引入初始化样式文件
 import '@/styles/common.scss'
 
@@ -14,10 +15,12 @@ import '@/styles/common.scss'
 // getTestData().then(res => {
 //     console.log(res);
 // })
-
+const pinia= createPinia()
+//注册持久化插件
+pinia.use(piniaPLuginPersist)
 const app = createApp(App)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 //懒加载插件
 //引入懒加载插件
