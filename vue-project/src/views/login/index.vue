@@ -2,6 +2,15 @@
 //表单校验
 import { valueEquals } from 'element-plus';
 import { ref } from 'vue'
+import { loginApi } from '@/apis/user';
+//提示组件与css
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+
+import { useRouter } from 'vue-router'
+// useRouter()获取路由对象 带r是获取方法 不带r是获取属性/参数
+const router=useRouter()
+
 //创建表单对象
 const form=ref({
     account:'',
@@ -48,11 +57,20 @@ const rules={
 const formRef=ref(null)
 const doLogin=()=>{
   console.log('formRef',formRef.value)
-  formRef.value.validate((valid)=>{
+  const {account,password,agree}=form.value
+  formRef.value.validate(async(valid)=>{
     //valid是校验结果 所有校验通过为true 否则为false
     if(valid){
       console.log('校验通过',valid)
       //校验通过 才执行登录逻辑
+      const res=await loginApi(account,password)
+      console.log('res',res)
+      //提示用户
+      ElMessage.success('登录成功')
+      //跳转到首页
+      router.replace('/')
+      //替换路由
+
     }else{
       console.log('校验失败')
     }

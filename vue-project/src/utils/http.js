@@ -1,5 +1,7 @@
 //axios基础的封装
 import axios from 'axios';
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
 
 //创建axios实例
 const service = axios.create({
@@ -29,6 +31,10 @@ service.interceptors.response.use(
     error => {
         //响应错误时做些什么
         console.log(error);
+        ElMessage({
+            message: error.response.data.message,
+            type: 'error',
+        })
         return Promise.reject(error);
     }
 );
