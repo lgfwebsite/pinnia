@@ -1,12 +1,16 @@
+<script setup>
+import {  useUserstore } from '@/stores/user'
+const userStore =  useUserstore()
+</script>
 <template>
   <nav class="app-topnav">
    <div class="container">
     <ul class="nav">
       <!-- 区别登录与非登录的状态 -->
-      <template v-if="false">
-
+       <!-- 登录时显示第一个 非登录时显示第二个 -->
+      <template v-if="userStore.userInfo.token">
         <li><a href="javascript:void(0)"><i class="iconfont icon-user">
-          {{ '用户名' }}
+          {{ userStore.userInfo.account }}
         </i></a></li>
         <li>
           <el-popconfirm
