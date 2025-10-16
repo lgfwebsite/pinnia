@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
+import { useUserstore } from '@/stores/user'
 
 //创建axios实例
 const service = axios.create({
@@ -12,6 +13,11 @@ const service = axios.create({
 //请求拦截器
 service.interceptors.request.use(
     config => {
+        const userStore = useUserstore();
+        const token = userStore.token;
+        if (token) {
+             config.headers.Authorization= `Bearer ${token}`
+        }
         //在发送请求之前做些什么
         return config;
     },
