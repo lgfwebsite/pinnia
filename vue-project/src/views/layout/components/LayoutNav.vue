@@ -1,6 +1,16 @@
 <script setup>
+import router from '@/router'
 import {  useUserstore } from '@/stores/user'
 const userStore =  useUserstore()
+const confirm=()=>{
+  console.log('退出登录')
+  //清除用户信息 触发action
+   userStore.clearUserInfo()
+  //跳转到登录页面
+  router.push('/login')
+}
+//退出登录逻辑实现
+
 </script>
 <template>
   <nav class="app-topnav">
@@ -19,6 +29,8 @@ const userStore =  useUserstore()
             icon-color="red"
             confirm-button-text="确定"
             cancel-button-text="取消"
+            @confirm="confirm"
+
           >
             <template #reference>
               <a href="javascript:void(0)">退出登录</a>
