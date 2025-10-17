@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import { useUserstore } from '@/stores/user'
-
+import router from '@/router'
 //创建axios实例
 const service = axios.create({
     baseURL: 'https://pcapi-xiaotuxian-front-devtest.itheima.net', //基础url
@@ -41,6 +41,13 @@ service.interceptors.response.use(
             message: error.response.data.message,
             type: 'error',
         })
+        //清除本地数据和token
+        //跳转登录页面
+        if (error.response.status === 401) {
+          userStore.clearUserInfo();
+          router.push('/login');
+
+        }
         return Promise.reject(error);
     }
 );
