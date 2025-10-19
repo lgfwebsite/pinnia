@@ -3,19 +3,55 @@ import { getDetailApi } from '@/apis/detail'
 import { useRoute } from 'vue-router'
 import {ref,onMounted} from 'vue'
 import detailhot from './components/detailhot.vue'
+import { useCartStore } from '@/stores/cartstore'
+const cartStore = useCartStore()
 // import imageView from '@/components/ImageView/index.vue'
 // import XtxSku from '@/components/XtxSku/index.vue'
 //用全局组件的方式引入
 const goods = ref({})
 const route = useRoute()
+const count = ref(1)
 const getGoods = async () => {
     const res = await getDetailApi(route.params.id)
     goods.value = res.result
 }
+//当sku发生改变的时候触发
+let skuObj={}
 const skuChange=(sku)=>{
+    skuObj = sku
     console.log('skuChange',sku)
+
+}
+const countChange=(count)=>{
+    console.log('countChange',count)
+}
+
+//添加购物车
+const addCart=()=>{
+    console.log('addCart',skuObj,count)
+    if(skuObj.skuId){
+         //规则已经选择
+        cartStore.addCart({
+            id:goods.value.id,
+            name:goods.value.name,
+            picture:goods.value.mainPictures[0],
+            price:goods.value.price,
+            count:count.value,
+            skuId:skuObj.skuId,
+            attrsText:skuObj.specsText,
+            selectedSku:skuObj
+        })
+    }
+    else{
+        //规则没有选择
+        ElMessage({
+            message: '请选择规格',
+            type: 'warning',
+        })
+    }
 }
 onMounted(() => getGoods())
+
 </script>
 
 <template>
@@ -92,10 +128,10 @@ onMounted(() => getGoods())
                                 </dl>
                             </div>
                             <!-- sku组件 -->
-                            <!-- <xtx-sku :goods="goods" @change="skuChange"/> -->
-                             <xtx :goods="goods"  @change="skuChange"></xtx>
+                            <xtx-sku :goods="goods" @change="skuChange"/>
+                             <!-- <xtx :goods="goods"  @change="skuChange"/> -->
                             <!-- 数据组件 -->
-
+                            <el-input-number v-model="count" :min="1" :max="10" @change="countChange" />
                             <!-- 按钮组件 -->
                             <div>
                                 <el-button size="large" class="btn" @click="addCart">
