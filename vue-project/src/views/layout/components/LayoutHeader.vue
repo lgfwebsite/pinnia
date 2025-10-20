@@ -2,6 +2,7 @@
 
 import getcategoryApi from '@/apis/layout.js';
 import { onMounted, ref } from 'vue';
+import HeaderCart from './HeaderCart.vue';
 
 // const catelist=ref([])
 // const getcateList= async function getcategory() {
