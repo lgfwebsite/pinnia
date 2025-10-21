@@ -4,17 +4,33 @@ const cartStore = useCartStore()
 // const cartList = []
 
 
-// // 单选回调
-// const singleCheck = (i, selected) => {
-//     console.log(i, selected);
-//     // store cartList 数组 无法知道要修改谁的选中状态？
-//     // 除了selected补充一个用来筛选的参数 - skuId
-//     cartStore.singleCheck(i.skuId, selected)
-// }
+//单选回调
+const singleCheck = (i,selected) => {
+  console.log(i,selected)
+  //修改谁的选中状态？根据skuid
+  cartStore.selectCheck(i.goods.skuId,selected)
+}
 
-// const allCheck = (selected) => {
-//     cartStore.allCheck(selected)
-// }
+//全选回调
+const allCheck = (selected) => {
+  console.log(selected)
+  cartStore.cartList.forEach(item => {
+    item.selected = selected
+  })
+}
+
+//删除回调
+const delCart = (skuId) => {
+  console.log(skuId)
+  cartStore.dlCart(skuId)
+}
+
+//结算
+const goPay = () => {
+  console.log('结算')
+
+}
+
 
 // 单选回调
 // const singleCheck = (i, selected) => {
@@ -54,7 +70,8 @@ const cartStore = useCartStore()
                             <td>
                                 <!-- 单选框 -->
                                 <!-- <el-checkbox /> -->
-                                <el-checkbox :model-value="i.selected" @change="(selected) => singleCheck(i, selected)" />
+                                 <!-- {{ i.selected }} -->
+                                <el-checkbox :model-value="i.selected" @change="(selected)=>singleCheck(i,selected)" />
                             </td>
                             <td>
                                 <div class="goods">
@@ -101,7 +118,7 @@ const cartStore = useCartStore()
             <!-- 操作栏 -->
             <div class="action">
                 <div class="batch">
-                    共 件商品，已选择  件，商品合计：
+                    共 {{cartStore.cartList.allCount }}件商品，已选择  件，商品合计{{cartStore.cartList.allPrice}}：
                     <span class="red">¥  </span>
                 </div>
                 <div class="total">

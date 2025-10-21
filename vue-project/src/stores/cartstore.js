@@ -46,15 +46,20 @@ const allPrice = computed(() => {
     return a + c.goods.price * c.goods.count; // 必须添加 return
   }, 0);
 });
+//选中 单选功能
+const selectCheck = (skuId, selected) => {
+  const item=cartList.value.find(item => skuId === item.goods.skuId )
+  item.selected=selected
 
+}
   // 3.定义getters
    return {
     cartList,
     allCount,
     allPrice,
     addCart,
-    dlCart
-
+    dlCart,
+    selectCheck
 }
 },{
   persist: true
