@@ -39,7 +39,7 @@ const addCart=()=>{
             count:count.value,
             skuId:skuObj.skuId,
             attrsText:skuObj.specsText,
-            selectedSku:skuObj
+            selected: true
         })
     }
     else{

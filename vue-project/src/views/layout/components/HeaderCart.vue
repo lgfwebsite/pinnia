@@ -27,14 +27,15 @@ const cartStore = useCartStore()
                         </div>
                     </RouterLink>
                     <!-- 删除 -->
-                    <i class="iconfont icon-close-new" @click="cartStore.dlCart(i.skuId)"></i>
+                     {{ i.goods.skuId }}
+                    <i class="iconfont icon-close-new" @click="cartStore.dlCart(i.goods.skuId)"></i>
                 </div>
 
             </div>
             <div class="foot">
                 <div class="total">
-                    <p>共10件商品</p>
-                    <p>&yen;100 </p>
+                    <p>共{{cartStore.allCount}}件商品</p>
+                    <p>&yen;{{ cartStore.allPrice.toFixed(2) }} </p>
                 </div>
                 <el-button size="large" type="primary" @click="">去购物车结算</el-button>
             </div>

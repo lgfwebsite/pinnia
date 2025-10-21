@@ -1,6 +1,6 @@
 //封装购物车模块
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 export const useCartStore = defineStore('cart', ()=>{
   // 1.定义state
   const cartList = ref([])
@@ -9,11 +9,11 @@ export const useCartStore = defineStore('cart', ()=>{
     console.log('addCart')
     //添加购物车操作
     //通过skuid判断商品是否在购物车已经存在
-    const item = cartList.value.find(item => goods.skuId === item.skuId)
+    const item = cartList.value.find(item => goods.skuId === item.goods.skuId)
     //找到了
   // 1.数量+1
   if(item){
-    item.count++
+    item.goods.count++
   }
   //没找到
   else{
@@ -32,11 +32,29 @@ export const useCartStore = defineStore('cart', ()=>{
     //删除
     cartList.value.splice(index,1)
   }
+
+  // 总数量（修复版）
+const allCount = computed(() => {
+  return cartList.value.reduce((a, c) => {
+    return a + c.goods.count; // 必须添加 return
+  }, 0);
+});
+
+// 总价（修复版）
+const allPrice = computed(() => {
+  return cartList.value.reduce((a, c) => {
+    return a + c.goods.price * c.goods.count; // 必须添加 return
+  }, 0);
+});
+
   // 3.定义getters
    return {
     cartList,
+    allCount,
+    allPrice,
     addCart,
     dlCart
+
 }
 },{
   persist: true
