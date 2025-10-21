@@ -23,10 +23,20 @@ export const useCartStore = defineStore('cart', ()=>{
   }
   }
 
+  //删除购物车
+  const dlCart=(skuId)=>{
+    console.log('skuId')
+    //找到删除项的索引
+    //使用数组的过滤方法
+    const index=cartList.value.findIndex(item => skuId === item.skuId)
+    //删除
+    cartList.value.splice(index,1)
+  }
   // 3.定义getters
    return {
     cartList,
-    addCart
+    addCart,
+    dlCart
 }
 },{
   persist: true
