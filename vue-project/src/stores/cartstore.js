@@ -52,14 +52,29 @@ const selectCheck = (skuId, selected) => {
   item.selected=selected
 
 }
+//是否全选
+const isAll= computed(()=>{
+  return cartList.value.every(item=>item.selected)
+})
+
+//全选功能
+const AllCheck = (selected) => {
+  cartList.value.forEach(item=>{
+    item.selected=selected
+  })
+
+}
   // 3.定义getters
    return {
     cartList,
     allCount,
     allPrice,
+    isAll,
     addCart,
     dlCart,
-    selectCheck
+    selectCheck,
+    AllCheck
+
 }
 },{
   persist: true

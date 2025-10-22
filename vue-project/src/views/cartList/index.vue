@@ -13,22 +13,7 @@ const singleCheck = (i,selected) => {
 
 //全选回调
 const allCheck = (selected) => {
-  console.log(selected)
-  cartStore.cartList.forEach(item => {
-    item.selected = selected
-  })
-}
-
-//删除回调
-const delCart = (skuId) => {
-  console.log(skuId)
-  cartStore.dlCart(skuId)
-}
-
-//结算
-const goPay = () => {
-  console.log('结算')
-
+  cartStore.AllCheck (selected)
 }
 
 
@@ -41,9 +26,7 @@ const goPay = () => {
 // }
 
 
-// const allCheck = (selected) => {
-//     cartStore.allCheck(selected)
-// }
+
 </script>
 
 <template>
@@ -55,7 +38,8 @@ const goPay = () => {
                         <tr>
                             <th width="120">
                                 <!-- 全选框 -->
-                                <el-checkbox/>
+                                 {{ cartStore.isAll }}11
+                                <el-checkbox :model-value="cartStore.isAll" @change="allCheck">全选</el-checkbox>
                             </th>
                             <th width="400">商品信息</th>
                             <th width="220">单价</th>
