@@ -62,14 +62,30 @@ const AllCheck = (selected) => {
   cartList.value.forEach(item=>{
     item.selected=selected
   })
-
 }
+
+//已选择数量
+const selectedCount = computed(() => {
+  return cartList.value.filter(item=>item.selected).reduce((a,c)=>{
+    return a+c.goods.count
+  },0)
+})
+
+//已选择商品合计
+const selectedPrice = computed(() => {
+   return cartList.value.filter(item=>item.selected).reduce((a,c)=>{
+    return a+c.goods.price*c.goods.count
+    },0)
+})
+
   // 3.定义getters
    return {
     cartList,
     allCount,
     allPrice,
     isAll,
+    selectedPrice,
+    selectedCount,
     addCart,
     dlCart,
     selectCheck,
