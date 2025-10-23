@@ -1,12 +1,30 @@
 //封装购物车模块
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import { useUserStore } from './user'
+import { insertCartApi, getNewCartApi } from '@/stores/cart'
+const userStore = useUserStore()
 export const useCartStore = defineStore('cart', ()=>{
+  const isLogin = computed(()=>{
+     return userStore.userInfo?.token
+
+  })
   // 1.定义state
   const cartList = ref([])
   // 2.定义action
-  const addCart=(goods)=>{
-    console.log('addCart')
+  const addCart= async(goods)=>{
+    const {skuId, count} = goods
+    if(isLogin.value){await insertCartApi({skuId, count})
+      //获取最新购物车列表
+      cartList.value = await getNewCartApi()
+       await insertCartApi({skuId, count})
+      //获取最新购物车列表
+      cartList.value = await getNewCartApi()
+
+
+    }
+    else{
+       console.log('addCart')
     //添加购物车操作
     //通过skuid判断商品是否在购物车已经存在
     const item = cartList.value.find(item => goods.skuId === item.goods.skuId)
@@ -22,6 +40,8 @@ export const useCartStore = defineStore('cart', ()=>{
     })
   }
   }
+    }
+
 
   //删除购物车
   const dlCart=(skuId)=>{
@@ -72,11 +92,12 @@ const selectedCount = computed(() => {
 })
 
 //已选择商品合计
-const selectedPrice = computed(() => {
-   return cartList.value.filter(item=>item.selected).reduce((a,c)=>{
+const selectedPrice = computed(() =>
+    cartList.value.filter(item=>item.selected).reduce((a,c)=>{
     return a+c.goods.price*c.goods.count
     },0)
-})
+)
+//显示写法去掉{}和return
 
   // 3.定义getters
    return {
