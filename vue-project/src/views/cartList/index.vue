@@ -8,7 +8,7 @@ const cartStore = useCartStore()
 const singleCheck = (i,selected) => {
   console.log(i,selected)
   //修改谁的选中状态？根据skuid
-  cartStore.selectCheck(i.goods.skuId,selected)
+  cartStore.selectCheck(i.skuId,selected)
 }
 
 //全选回调
@@ -50,7 +50,7 @@ const allCheck = (selected) => {
                     </thead>
                     <!-- 商品列表 -->
                     <tbody>
-                        <tr v-for="i in cartStore.cartList" :key="i.id">
+                        <tr v-for="i in cartStore.cartList.result" :key="i.id">
                             <td>
                                 <!-- 单选框 -->
                                 <!-- <el-checkbox /> -->
@@ -59,22 +59,22 @@ const allCheck = (selected) => {
                             </td>
                             <td>
                                 <div class="goods">
-                                    <RouterLink to="/"><img :src="i.goods.picture" alt="" /></RouterLink>
+                                    <RouterLink to="/"><img :src="i.picture" alt="" /></RouterLink>
                                     <div>
                                         <p class="name ellipsis">
-                                            {{ i.goods.name }}
+                                            {{ i.name }}
                                         </p>
                                     </div>
                                 </div>
                             </td>
                             <td class="tc">
-                                <p>&yen;{{ i.goods.price }}</p>
+                                <p>&yen;{{ i.price }}</p>
                             </td>
                             <td class="tc">
-                                <el-input-number v-model="i.goods.count" :min="0" />
+                                <el-input-number v-model="i.count" :min="0" />
                             </td>
                             <td class="tc">
-                                <p class="f16 red">&yen;{{ (i.goods.price * i.goods.count).toFixed(2) }}</p>
+                                <p class="f16 red">&yen;{{ (i.price * i.count).toFixed(2) }}</p>
                             </td>
                             <td class="tc">
                                 <p>

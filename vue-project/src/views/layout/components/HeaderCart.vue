@@ -7,28 +7,28 @@ const cartStore = useCartStore()
 <template>
     <div class="cart">
         <a class="curr" href="javascript:;">
-            <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
+            <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.result.length }}</em>
         </a>
         <div class="layer">
             <div class="list">
 
-                <div class="item" v-for="i in cartStore.cartList" :key="i">
+                <div class="item" v-for="i in cartStore.cartList.result" :key="i">
                     <RouterLink to="">
-                        <img :src="i.goods.picture" alt="" />
+                        <img :src="i.picture" alt="" />
                         <div class="center">
                             <p class="name ellipsis-2">
-                                {{ i.goods.name }}
+                                {{ i.name }}
                             </p>
-                            <p class="attr ellipsis">{{ i.goods.attrsText }}</p>
+                            <p class="attr ellipsis">{{ i.attrsText }}</p>
                         </div>
                         <div class="right">
-                            <p class="price">&yen;{{ i.goods.price }}</p>
-                            <p class="count">x{{ i.goods.count }}</p>
+                            <p class="price">&yen;{{ i.price }}</p>
+                            <p class="count">x{{ i.count }}</p>
                         </div>
                     </RouterLink>
                     <!-- 删除 -->
-                     {{ i.goods.skuId }}
-                    <i class="iconfont icon-close-new" @click="cartStore.dlCart(i.goods.skuId)"></i>
+                     {{ i?.skuId }}
+                    <i class="iconfont icon-close-new" @click="cartStore.dlCart(i.skuId)"></i>
                 </div>
 
             </div>

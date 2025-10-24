@@ -16,10 +16,10 @@ import '@/styles/common.scss'
 //     console.log(res);
 // })
 const pinia= createPinia()
+
+const app = createApp(App)
 //注册持久化插件
 pinia.use(piniaPLuginPersist)
-const app = createApp(App)
-
 app.use(pinia)
 app.use(router)
 //懒加载插件

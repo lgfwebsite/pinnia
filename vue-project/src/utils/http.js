@@ -4,6 +4,7 @@ import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import { useUserstore } from '@/stores/user'
 import router from '@/router'
+import { computed } from 'vue';
 //创建axios实例
 const service = axios.create({
     baseURL: 'https://pcapi-xiaotuxian-front-devtest.itheima.net', //基础url
@@ -13,8 +14,8 @@ const service = axios.create({
 //请求拦截器
 service.interceptors.request.use(
     config => {
-        const userStore = useUserstore();
-        const token = userStore.token;
+        const userStore =useUserstore()
+        const token =userStore.userInfo.token
         if (token) {
              config.headers.Authorization= `Bearer ${token}`
         }
@@ -44,6 +45,8 @@ service.interceptors.response.use(
         //清除本地数据和token
         //跳转登录页面
         if (error.response.status === 401) {
+           const userStore =useUserstore()
+            // const token =userStore.userInfo.token
           userStore.clearUserInfo();
           router.push('/login');
 

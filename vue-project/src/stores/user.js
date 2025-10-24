@@ -1,8 +1,8 @@
 //管理用户数据相关
-import { defineStore } from 'pinia'
 //模块名，逻辑代码
-import { loginApi } from '@/apis/user'
 import { ref } from 'vue'
+import { defineStore } from 'pinia'
+import { loginApi } from '@/apis/user'
 
 export const useUserstore=defineStore('user',()=> {
   //1.定义用户管理数据
@@ -11,6 +11,7 @@ export const useUserstore=defineStore('user',()=> {
   const getUserInfo=async({account, password})=>{
     const res=await loginApi({account, password})
     userInfo.value=res.result
+    console.log('我拿到了数据')
 
   }
 
