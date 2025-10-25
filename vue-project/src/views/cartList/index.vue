@@ -50,7 +50,7 @@ const allCheck = (selected) => {
                     </thead>
                     <!-- 商品列表 -->
                     <tbody>
-                        <tr v-for="i in cartStore.cartList.result" :key="i.id">
+                        <tr v-for="i in cartStore.cartList" :key="i.id">
                             <td>
                                 <!-- 单选框 -->
                                 <!-- <el-checkbox /> -->

@@ -7,12 +7,12 @@ const cartStore = useCartStore()
 <template>
     <div class="cart">
         <a class="curr" href="javascript:;">
-            <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.result.length }}</em>
+            <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
         </a>
         <div class="layer">
             <div class="list">
 
-                <div class="item" v-for="i in cartStore.cartList.result" :key="i">
+                <div class="item" v-for="i in cartStore.cartList" :key="i">
                     <RouterLink to="">
                         <img :src="i.picture" alt="" />
                         <div class="center">
@@ -27,7 +27,7 @@ const cartStore = useCartStore()
                         </div>
                     </RouterLink>
                     <!-- 删除 -->
-                     {{ i?.skuId }}
+                     <!-- {{ i?.goods }} -->
                     <i class="iconfont icon-close-new" @click="cartStore.dlCart(i.skuId)"></i>
                 </div>
 

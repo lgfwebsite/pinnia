@@ -22,7 +22,16 @@ export const getNewCartApi=()=>{
 export const deleteCartApi=(ids)=>{
   return request({
     url:'/member/cart/',
-    method:'delete',
-    data:ids
+    method:'DELETE',
+    data:{ids}
+  })
+}
+
+//合并购物车
+export const mergeCartApi=(data)=>{
+  return request({
+    url:'/member/cart/merge',
+    method:'post',
+    data
   })
 }
