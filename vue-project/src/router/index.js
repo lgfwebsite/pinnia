@@ -7,7 +7,11 @@ import subcategory  from '../views/subcategory/index.vue'
 import detail from '../views/detail/index.vue'
 import cartList from '../views/cartList/index.vue'
 import checkout from '../views/checkout/index.vue'
-
+import pay  from '../views/pay/index.vue'
+import payback from '@/views/pay/payback.vue'
+import member from '../views/member/index.vue'
+import userInfo from '@/views/member/compoments/userInfo.vue'
+import userOrder from '@/views/member/compoments/userOrder.vue'
 //createRouter函数：创建路由实例
 //createWebHistory函数：创建基于HTML5 History API的路由模式
 //import.meta.env.BASE_URL：获取应用的基础路径，通常在开发环境中是'/'，在生产环境中可能是'/your-repo-name/'
@@ -68,6 +72,34 @@ const router = createRouter({
           path:'checkout',
           name:'checkout',
           component: checkout
+        },
+        {
+          path:'pay',
+          name:'pay',
+          component:pay
+        },
+        {
+          path:'payback',
+          name:'payback',
+          component: payback
+        },
+        {
+          path:'member',
+          name:'member',
+          component: member,
+          children:[
+            {
+              path: '',  //默认子路由
+              name: 'user',
+              component: userInfo
+            },
+            {
+              path: 'order',
+              name: 'order',
+              component: userOrder
+            }
+          ]
+
         }
 
        ]

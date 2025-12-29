@@ -9,3 +9,14 @@ export const loginApi=({account,password})=>{
     }
    })
 }
+
+//获取用户信息
+// 获取喜欢列表API
+export const getLikeListAPI = ({ limit = 4 }) => {
+    return httpinstance({
+        url: '/goods/relevant',
+        params: {
+            limit
+        }
+    })
+}

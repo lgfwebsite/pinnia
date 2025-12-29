@@ -1,19 +1,63 @@
 <script setup>
-import {checkoutaApi} from '@/apis/checkout.js'
+import {checkoutaApi,createOrderApi} from '@/apis/checkout.js'
 // 获取结算信息
 import {ref, onMounted} from 'vue'
+import {useRouter} from 'vue-router'
+import {useCartStore} from '@/stores/cartstore.js'
+import {getNewCartApi} from '@/apis/cart.js'
+const router = useRouter()
 const checkInfo = ref({}) // 订单对象
 const curAddress = ref({}) // 默认地址
 const getCheckInfo = async () => {
       const res= await checkoutaApi()
+      console.log(res,'结算信息')
       checkInfo.value = res.result
       //默认地址
-      const item=checkInfo.value.userAddresses.find(item=> item.isDefault===0)
+      const item=checkInfo.value.userAddresses.find(item=> item.isDefault===1)
       curAddress.value = item
 
 }
 //控制框
 const showDialog = ref(false)
+
+const activeAdress= ref({}) //当前选中的地址
+//切换地址
+const switchAddress = (item) => {
+  activeAdress.value = item
+  console.log(item)
+}
+
+// 确认地址
+const confirm=()=>{
+  curAddress.value = activeAdress.value
+  showDialog.value = false
+  activeAdress.value = {}
+}
+//创建订单
+const createOrder = async() => {
+  const response=await createOrderApi({
+    deliveryTimeType: 1,
+    payType: 1,
+    payChannel: 1,
+    buyerMessage: '',
+    goods:checkInfo.value.goods.map(item=>{
+      return {
+        skuId: item.skuId,
+        count: item.count
+      }
+    }),
+    addressId: curAddress.value.id
+  })
+  const orderId = response.result.id
+  router.push({
+    path: '/pay',
+    query: {id: orderId}
+  })
+  //更新购物车
+   const res = await getNewCartApi() // 加 await，否则 res 是 Promise
+   cartList.value = res.result
+
+}
 
 onMounted(() => getCheckInfo())
 
@@ -59,6 +103,7 @@ onMounted(() => getCheckInfo())
                         <tbody>
                             <tr v-for="i in checkInfo.goods" :key="i.id">
                                 <td>
+
                                     <a href="javascript:;" class="info">
                                         <img :src="i.picture" alt="">
                                         <div class="right">
@@ -121,7 +166,7 @@ onMounted(() => getCheckInfo())
     <!-- 切换地址 -->
     <el-dialog v-model="showDialog" title="切换收货地址" width="30%" center>
         <div class="addressWrapper">
-            <div class="text item" @click="switchAddress(item)"
+            <div class="text item" @click="switchAddress(item)" :class='{active: activeAdress.id===item.id}'
                 v-for="item in checkInfo.userAddresses" :key="item.id">
                 <ul>
                     <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
