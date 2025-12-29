@@ -6,6 +6,7 @@ import category from '../views/category/index.vue'
 import subcategory  from '../views/subcategory/index.vue'
 import detail from '../views/detail/index.vue'
 import cartList from '../views/cartList/index.vue'
+import checkout from '../views/checkout/index.vue'
 
 //createRouter函数：创建路由实例
 //createWebHistory函数：创建基于HTML5 History API的路由模式
@@ -61,6 +62,12 @@ const router = createRouter({
           path: 'cartList',
           name: 'cartList',
           component: cartList
+        },
+
+        {
+          path:'checkout',
+          name:'checkout',
+          component: checkout
         }
 
        ]
